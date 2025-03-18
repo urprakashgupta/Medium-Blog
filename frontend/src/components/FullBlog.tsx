@@ -4,31 +4,43 @@ import { Avatar } from "./BlogCard";
 
 export const FullBlog = ({ blog }: { blog: Blog }) => {
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Appbar />
-      <div className="flex justify-center">
-        <div className="grid grid-cols-12 px-10 w-full pt-200 max-w-screen-xl">
-          <div className="col-span-8">
-            <div className="text-5xl font-extrabold">{blog.title}</div>
-            <div className="text-slate-500 pt-2">Post on 2nd December 2023</div>
-            <div className="pt-4">{blog.content}</div>
+      <div className="flex justify-center py-12">
+        <div className="grid grid-cols-12 px-8 w-full max-w-screen-xl gap-8">
+          {/* Blog Content Section */}
+          <div className="col-span-8 bg-white p-8 rounded-xl shadow-md">
+            <h1 className="text-5xl font-extrabold text-gray-900 mb-4">
+              {blog.title}
+            </h1>
+            <p className="text-gray-500 text-sm mb-6">
+              Posted on 2nd December 2023
+            </p>
+            <article className="leading-8 text-gray-700 text-lg">
+              {blog.content}
+            </article>
           </div>
-          <div className="col-span-4">
-            <div className="text-slate-600 text-lg">Author</div>
-            <div className="flex w-full">
-              <div className="pr-4 flex flex-col justify-center">
-                <Avatar size="big" name={blog.author.name || "Anonymous"} />
-              </div>
-              <div>
-                <div className="text-xl font-bold">
+
+          {/* Author Section */}
+          <div className="col-span-4 bg-white p-8 rounded-xl shadow-md">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">
+              About the Author
+            </h2>
+            <div className="flex items-center mb-4">
+              <Avatar size="big" name={blog.author.name || "Anonymous"} />
+              <div className="ml-4">
+                <h3 className="text-xl font-bold text-gray-900">
                   {blog.author.name || "Anonymous"}
-                </div>
-                <div className="pt-2 text-slate-500">
-                  Random catch phrase about the author's ability to grab the
-                  user's attention
-                </div>
+                </h3>
+                <p className="text-sm text-gray-500">
+                  "Bringing words to life with authentic storytelling."
+                </p>
               </div>
             </div>
+            <p className="text-gray-600 italic">
+              Random catch phrase about the author's ability to grab the user's
+              attention.
+            </p>
           </div>
         </div>
       </div>

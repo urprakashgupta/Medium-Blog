@@ -13,10 +13,10 @@ export const HomePage = () => {
             stories.
           </p>
           <Link
-            to="/blogs"
+            to="/signin"
             className="bg-white text-blue-600 px-6 py-3 font-semibold rounded-full hover:bg-blue-700 hover:text-white"
           >
-            Discover Blogs
+            Get Started
           </Link>
         </div>
       </header>

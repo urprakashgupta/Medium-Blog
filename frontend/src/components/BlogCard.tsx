@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 interface BlogCardProps {
   authorName: string;
   title: string;
@@ -16,31 +17,39 @@ export const BlogCard = ({
 }: BlogCardProps) => {
   return (
     <Link to={`/blog/${id}`}>
-      <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen-md cursor-pointer">
-        <div className="flex">
+      <div className="p-6 bg-white shadow-lg hover:shadow-xl rounded-lg transition-transform transform hover:-translate-y-1 w-full max-w-screen-md cursor-pointer">
+        {/* Header Section */}
+        <div className="flex items-center mb-4">
           <Avatar name={authorName} />
-          <div className="font-extralight pl-2 text-sm flex justify-center flex-col">
-            {authorName}
-          </div>
-          <div className="flex justify-center pl-2 flex-col">
-            <Circle />
-          </div>
-          <div className="pl-2 font-thin text-slate-500 text-sm flex justify-center flex-col">
-            {publishedDate}
+          <div className="ml-3">
+            <div className="text-sm font-semibold text-gray-800">
+              {authorName}
+            </div>
+            <div className="text-xs text-gray-500">{publishedDate}</div>
           </div>
         </div>
-        <div className="text-xl font-semibold pt-2">{title}</div>
-        <div className="text-md font-thin">{content.slice(0, 100) + "..."}</div>
-        <div className="text-slate-500 text-sm font-thin pt-4">
-          {`${Math.ceil(content.length / 100)} minute(s) read`}
+
+        {/* Blog Content */}
+        <h2 className="text-2xl font-bold text-gray-900 mb-2 truncate">
+          {title}
+        </h2>
+        <p className="text-gray-600 mb-4 line-clamp-3">{content}</p>
+
+        {/* Footer Section */}
+        <div className="text-gray-500 text-sm flex items-center">
+          <span>{`${Math.ceil(content.length / 100)} minute(s) read`}</span>
+          <Circle className="mx-2" />
+          <span className="text-blue-600 hover:underline">Read more</span>
         </div>
       </div>
     </Link>
   );
 };
 
-export function Circle() {
-  return <div className="h-1 w-1 rounded-full bg-slate-500"></div>;
+export function Circle({ className }: { className?: string }) {
+  return (
+    <div className={`h-2 w-2 rounded-full bg-gray-500 ${className}`}></div>
+  );
 }
 
 export function Avatar({
@@ -52,17 +61,11 @@ export function Avatar({
 }) {
   return (
     <div
-      className={`relative inline-flex items-center justify-center overflow-hidden bg-gray-600 rounded-full ${
-        size === "small" ? "w-6 h-6" : "w-10 h-10"
+      className={`relative inline-flex items-center justify-center overflow-hidden bg-blue-500 rounded-full text-white ${
+        size === "small" ? "w-8 h-8 text-sm" : "w-12 h-12 text-lg"
       }`}
     >
-      <span
-        className={`${
-          size === "small" ? "text-xs" : "text-md"
-        } font-extralight text-gray-600 dark:text-gray-300`}
-      >
-        {name[0]}
-      </span>
+      {name[0].toUpperCase()}
     </div>
   );
 }
