@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { userRouter } from "./routes/user";
 import { blogRouter } from "./routes/blog";
+import { cors } from "hono/cors";
 // Create the main Hono app
 const app = new Hono<{
   Bindings: {
@@ -8,6 +9,15 @@ const app = new Hono<{
     JWT_SECRET: string;
   };
 }>();
+
+app.use(
+  "*",
+  cors({
+    origin: "*", // Allow all origins, for testing purposes
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.route("/api/v1/user", userRouter);
 app.route("/api/v1/blog", blogRouter);
