@@ -4,7 +4,7 @@ import { BlogSkeleton } from "../components/BlogSkeleton";
 import { useBlogs } from "../hooks";
 
 export const Blogs = () => {
-  const { loading, blogs } = useBlogs();
+  const { loading, blogs = [] } = useBlogs();
 
   if (loading) {
     return (
@@ -23,6 +23,15 @@ export const Blogs = () => {
     );
   }
 
+  if (!Array.isArray(blogs)) {
+    return (
+      <div>
+        <Appbar />
+        <p className="text-center">No blogs available</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Appbar />
@@ -30,8 +39,9 @@ export const Blogs = () => {
         <div>
           {blogs.map((blog) => (
             <BlogCard
+              key={blog.id}
               id={blog.id}
-              authorName={blog.author.name || "Anonymous"}
+              authorName={blog.author?.name || "Anonymous"}
               title={blog.title}
               content={blog.content}
               publishedDate={"2nd Feb 2024"}

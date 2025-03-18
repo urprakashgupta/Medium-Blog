@@ -22,7 +22,7 @@ blogRouter.use("/*", async (c, next) => {
     const user = await verify(authHeader, c.env.JWT_SECRET);
     if (user) {
       c.set("userId", user.id);
-      next();
+      await next();
     } else {
       c.status(403);
       return c.json({
@@ -94,26 +94,30 @@ blogRouter.put("/", async (c) => {
 
 //here i have to impplemetn pagination
 blogRouter.get("/bulk", async (c) => {
-  const body = await c.req.json();
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  try {
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
 
-  const blogs = prisma.blog.findMany({
-    select: {
-      content: true,
-      title: true,
-      id: true,
-      author: {
-        select: {
-          name: true,
+    // Await for the blogs data
+    const blogs = await prisma.blog.findMany({
+      select: {
+        content: true,
+        title: true,
+        id: true,
+        author: {
+          select: {
+            name: true,
+          },
         },
       },
-    },
-  });
-  return c.json({
-    blogs,
-  });
+    });
+
+    return c.json({ blogs });
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return c.json({ error: "Failed to fetch blogs" }, 500);
+  }
 });
 
 blogRouter.get("/:id", async (c) => {

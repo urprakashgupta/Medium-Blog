@@ -14,8 +14,6 @@ app.use(
   "*",
   cors({
     origin: "*", // Allow all origins, for testing purposes
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowHeaders: ["Content-Type", "Authorization"],
   })
 );
 
