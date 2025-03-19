@@ -42,7 +42,8 @@ export const Publish = () => {
           {/* Publish Button */}
           <button
             onClick={handlePublish}
-            className="mt-4 w-full py-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-200"
+            className="mt-4 w-full py-2.5 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 
+            focus:ring-4 focus:ring-blue-200"
           >
             Publish Post
           </button>
@@ -66,7 +67,8 @@ function TextEditor({
         id="editor"
         rows={8}
         onChange={onChange}
-        className="w-full p-3 text-gray-800 bg-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none"
+        className="w-full p-3 text-gray-800 bg-white border border-gray-300 rounded-lg focus:ring-blue-500 
+        focus:outline-none"
         placeholder="Write an article..."
         required
       />
